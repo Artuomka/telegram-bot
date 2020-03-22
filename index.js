@@ -22,7 +22,12 @@ const responseStringifier = new ResponseStringifier();
 
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
+    if (!msg.location) {
+        bot.sendMessage(chatId, "Для получения информации, пожалуйста отправь мне свою геометку");
+        return;
+    }
     const {location: {latitude, longitude}} = msg;
+    console.log(JSON.stringify(msg));
     const origin = {lat: latitude, lng: longitude};
 
     requestToGoogleMaps(origin, (res) => {
