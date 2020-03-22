@@ -1,6 +1,6 @@
 const mongo = require('mongodb').MongoClient;
-const dbURL = 'mongodb://127.0.0.1:27017/';
-const dbName = 'my_db';
+const dbURL = 'mongodb://TestUser:testpassword123@ds125723.mlab.com:25723/heroku_l1hh87r1';
+const dbName = 'heroku_l1hh87r1';
 const collectionName = 'destinitions';
 
 class DaoMongoDB {
