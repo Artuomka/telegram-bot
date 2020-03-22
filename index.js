@@ -33,7 +33,6 @@ bot.on('message', (msg) => {
 });
 
 async function requestToGoogleMaps(origin, callback) {
-    console.log('func called');
     const currentDate = new Date();
     const orLat = origin.lat;
     const orLong = origin.lng;
