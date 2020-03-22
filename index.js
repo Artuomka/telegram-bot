@@ -27,7 +27,6 @@ bot.on('message', (msg) => {
         return;
     }
     const {location: {latitude, longitude}} = msg;
-    console.log(JSON.stringify(msg));
     const origin = {lat: latitude, lng: longitude};
 
     requestToGoogleMaps(origin, (res) => {
