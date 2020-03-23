@@ -1,30 +1,27 @@
-const mongo = require('mongodb').MongoClient;
-const dbURL = 'mongodb://TestUser:testpassword123@ds125723.mlab.com:25723/heroku_l1hh87r1';
-const dbName = 'heroku_l1hh87r1';
-const collectionName = 'destinitions';
+const mongo          = require('mongodb').MongoClient;
+const config         = require('../config.json');
+const dbURL          = config.development.database_url;
+const dbName         = config.development.database_name;
+const collectionName = config.development.database_collection_name;
 
-class DaoMongoDB {
-    constructor() {
-        this.destinitionItems = [];
-    }
 
-    async createDestinetionItem(item) {
-        const connection = await mongo.connect(dbURL);
-        const db         = await connection.db(dbName);
-        const collection = await db.createCollection(collectionName);
-        collection.insertOne(item);
-        connection.close();
-        return (true);
-    }
-
-    async readDestinationItems() {
-        const connection  = await mongo.connect(dbURL);
-        const db          = await connection.db(dbName);
-        const collection  = await db.createCollection(collectionName);
-        let dbArray       = await collection.find({}).toArray();
-        this.destinitionItems = dbArray;
-        connection.close();
-        return this.destinitionItems;
-    }
+async function createDestinetionItem(item) {
+  const connection = await mongo.connect(dbURL);
+  const db         = await connection.db(dbName);
+  const collection = await db.createCollection(collectionName);
+  await collection.insertOne(item);
+  await connection.close();
+  return true;
 }
-module.exports = DaoMongoDB;
+
+async function readDestinationItems() {
+  const connection     = await mongo.connect(dbURL);
+  const db             = await connection.db(dbName);
+  const collection     = await db.createCollection(collectionName);
+  let destinitionItems = await collection.find({}).toArray();
+  await connection.close();
+  return destinitionItems;
+}
+
+
+module.exports = {createDestinetionItem, readDestinationItems};

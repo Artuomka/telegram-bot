@@ -1,16 +1,5 @@
-class CoordinateParser {
-    constructor() {
-        this.parseCoordinates = (destinationsArray) => {
-            const coordinatesArray = [];
-            for (let i = 0; i < destinationsArray.length; i++) {
-                coordinatesArray.push({
-                    lat: destinationsArray[i].coordinates.lat,
-                    lng: destinationsArray[i].coordinates.lng,
-                });
-            }
-            return coordinatesArray;
-        }
-    }
+function parseCoordinates(destinationsArray) {
+  return destinationsArray.map(({ coordinates: { lat, lng } }) => ({ lat, lng }));
 }
 
-module.exports = CoordinateParser;
+module.exports = { parseCoordinates };
